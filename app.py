@@ -1,13 +1,16 @@
 import streamlit as st
 
-from rnn_analysis import (
-    load_model,
+from sentiment_analysis import (
+    load_artifacts,
     predict_sentiment
 )
 
-st.set_page_config(page_title="IMDB Sentiment Analysis", layout="wide")
+st.set_page_config(
+    page_title="IMDB Sentiment Analysis",
+    layout="wide"
+)
 
-st.title("RNN IMDB Sentiment Analysis")
+st.title("IMDB Sentiment Analysis")
 
 review = st.text_area(
     "Enter Movie Review"
@@ -23,11 +26,12 @@ if st.button("Predict"):
 
     else:
 
-        model = load_model()
+        model, vectorizer = load_artifacts()
 
         sentiment, confidence = predict_sentiment(
             review,
-            model
+            model,
+            vectorizer
         )
 
         st.header("Prediction")
